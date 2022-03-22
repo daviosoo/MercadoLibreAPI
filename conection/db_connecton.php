@@ -11,14 +11,11 @@ class DBconfig{
             $dns="mysql:host=$this->servidor;dbname=$this->nameDB";
             $connection= new PDO($dns,$this->user,$this->password);
             $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Conexion Exitosa!!!!";
+            return $connection;
         }catch(PDOException $err){
             echo "Error en la Base de datos".$err->getMessage();
         }
     }
 }
-
-$dbconnection = new DBconfig();
-$dbconnection->connect();
 
 
