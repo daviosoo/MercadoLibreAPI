@@ -12,7 +12,13 @@
         $users=$dbconnection->query($query)->fetchAll(PDO::FETCH_ASSOC);
         header('Content-Type: application/json');
         if(empty($users)){
-            echo("ingresaste mal los datos");
+            $array=[
+                "identificacion"=>"",
+                "email"=>"",
+                "celular"=>"",
+                "contra"=>""
+            ];
+            echo(json_encode($array));
         }else{
             echo(json_encode($users));
         }
