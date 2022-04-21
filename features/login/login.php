@@ -1,16 +1,27 @@
 <?php
 
-    require_once(dirname(__DIR__)."../../conection/db_conecton.php");        
+    require_once(dirname(__DIR__)."../../conection/db_connecton.php");        
         
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $data= json_decode(file_get_contents('php://input'),true);
-        $identification = $data['identification'];
+        $email = $data['email'];
+        $contra=$data['contra'];
         $db = new DBconfig();
         $dbconnection  = $db->connect();
-        $query= "SELECT * FROM tabla WHERE identification='$identification'";
+        $query= "SELECT * FROM usuario WHERE email='$email' AND contra='$contra'";
         $users=$dbconnection->query($query)->fetchAll(PDO::FETCH_ASSOC);
         header('Content-Type: application/json');
-        echo(json_encode($users));
+        if(empty($users)){
+            $array=[
+                "identificacion"=>"",
+                "email"=>"",
+                "celular"=>"",
+                "contra"=>""
+            ];
+            echo(json_encode($array));
+        }else{
+            echo(json_encode($users));
+        }
     }else{
         echo "ERROR";
     }
