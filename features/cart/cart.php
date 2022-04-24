@@ -17,19 +17,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         $idProducto = $data['idProducto'];
         $nombreProducto = $data['nombreProducto'];
         $precio = $data['precio'];
-        $identificacionUsuario = $data['identificacionUsuario'];
         $urlProducto = $data['urlProducto'];
+        $cantidadProducto = $data['cantidadProducto'];
+        $identificacionUsuario = $data['identificacionUsuario'];
 
         header('Content-Type: application/json');
         try
         {
-            $query= "INSERT INTO cart (id_producto, nombre_producto, precio_producto, url_producto, identification_usuario ) VALUES ($idProducto, '$nombreProducto', $precio, '$urlProducto', $identificacionUsuario)";
+            $query= "INSERT INTO cart (id_producto, nombre_producto, precio_producto, url_producto, cantidad_producto, identification_usuario ) VALUES ($idProducto, '$nombreProducto', $precio, '$urlProducto',$cantidadProducto, $identificacionUsuario)";
             $response=$dbconnection->prepare($query)->execute();
             echo(json_encode("Exito agregando al carrito"));
         }
         catch(Exception $e)
         {
-            echo(json_encode("Error agregando al carrito"));
+            echo(json_encode($e));
         }
 
     }
