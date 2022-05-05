@@ -72,7 +72,7 @@ elseif($_SERVER['REQUEST_METHOD'] == 'DELETE')
         
         try
         {
-            $query = "DELETE FROM cart WHERE identification_usuario='$user' AND id_producto=$idProducto";
+            $query = "DELETE FROM cart WHERE identification_usuario=$user AND id_producto=$idProducto";
             $users = $dbconnection->query($query);
 
             header('Content-Type: application/json');
@@ -81,7 +81,7 @@ elseif($_SERVER['REQUEST_METHOD'] == 'DELETE')
         }
          catch(Exception $e)
         {
-            echo(json_encode("Error agregando al carrito"));
+            echo(json_encode("Error eliminando al carrito"));
         }
        
     }
