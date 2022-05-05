@@ -24,13 +24,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         header('Content-Type: application/json');
         try
         {
-            $query= "INSERT INTO cart (id_producto, nombre_producto, precio_producto, url_producto, cantidad_producto, identification_usuario ) VALUES ($idProducto, '$nombreProducto', $precio, '$urlProducto',$cantidadProducto, $identificacionUsuario)";
+            $query= "INSERT INTO cart (id_producto, nombre_producto, precio_producto, url_producto, cantidad_producto, identification_usuario) VALUES ($idProducto, '$nombreProducto', $precio, '$urlProducto', $cantidadProducto, $identificacionUsuario)";
             $response=$dbconnection->prepare($query)->execute();
             echo(json_encode("Exito agregando al carrito"));
         }
         catch(Exception $e)
         {
-            echo(json_encode($e));
+            echo(json_encode("E: ". $e));
         }
 
     }
