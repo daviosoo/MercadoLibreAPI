@@ -5,7 +5,7 @@ class DBconfig{
     private $password="";
     private $servidor="localhost";
 
-    private $nameDB="mercadolibrebd";
+    private $nameDB="mercadolibredb";
 
     public function connect(){
         try{        
