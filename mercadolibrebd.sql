@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 21, 2022 at 11:42 PM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.2
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 24-04-2022 a las 22:29:52
+-- Versión del servidor: 10.4.21-MariaDB
+-- Versión de PHP: 7.4.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,26 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mercadolibrebd`
+-- Base de datos: `mercadolibrebd`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cart`
+-- Estructura de tabla para la tabla `carrito`
+--
+
+CREATE TABLE `carrito` (
+  `id` int(11) NOT NULL,
+  `id_user` varchar(100) DEFAULT NULL,
+  `id_producto` int(11) DEFAULT NULL,
+  `cantidad` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cart`
 --
 
 CREATE TABLE `cart` (
@@ -33,13 +46,37 @@ CREATE TABLE `cart` (
   `nombre_producto` varchar(60) NOT NULL,
   `precio_producto` int(11) NOT NULL,
   `url_producto` varchar(300) NOT NULL,
-  `identification_usuario` int(11) NOT NULL
+  `identification_usuario` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `cart`
+--
+
+INSERT INTO `cart` (`id`, `id_producto`, `nombre_producto`, `precio_producto`, `url_producto`, `identification_usuario`, `cantidad`) VALUES
+(6, 123, 'pepe', 2000, 'trhrtyhtyhtyjytjtj', 111, 3),
+(7, 456, 'pipi', 40500, 'trfghrthrthrthrth', 111, 5);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `producto`
+--
+
+CREATE TABLE `producto` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `precio` int(11) NOT NULL,
+  `url` varchar(500) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `descripcion` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -50,7 +87,7 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `usuario`
+-- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`identificacion`, `email`, `celular`, `contra`) VALUES
@@ -60,30 +97,61 @@ INSERT INTO `usuario` (`identificacion`, `email`, `celular`, `contra`) VALUES
 (1152343213, 'pepito@gmail.com', '11111111', '123456789');
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `cart`
+-- Indices de la tabla `carrito`
+--
+ALTER TABLE `carrito`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_producto` (`id_producto`);
+
+--
+-- Indices de la tabla `cart`
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `usuario`
+-- Indices de la tabla `producto`
+--
+ALTER TABLE `producto`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `cart`
+-- AUTO_INCREMENT de la tabla `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `producto`
+--
+ALTER TABLE `producto`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `carrito`
+--
+ALTER TABLE `carrito`
+  ADD CONSTRAINT `carrito_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`email`),
+  ADD CONSTRAINT `carrito_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
