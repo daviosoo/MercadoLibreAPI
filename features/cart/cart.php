@@ -85,6 +85,28 @@ elseif($_SERVER['REQUEST_METHOD'] == 'DELETE')
         }
        
     }
+    elseif(isset($_GET['identification']))
+    {
+        $db = new DBconfig();
+        $dbconnection = $db->connect();
+
+        $user = $_GET['identification'];
+        
+        try
+        {
+            $query = "DELETE FROM cart WHERE identification_usuario=$user";
+            $users = $dbconnection->query($query);
+
+            header('Content-Type: application/json');
+            echo json_encode("Se eliminaron los productos del carrito");
+
+        }
+         catch(Exception $e)
+        {
+            echo(json_encode("Error eliminando al carrito"));
+        }
+       
+    }
     else
     {
         echo("No se pudo retirar el articulo del carrito");
