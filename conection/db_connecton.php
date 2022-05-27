@@ -1,11 +1,11 @@
 <?php
 
 class DBconfig{
-    private $user="root";
-    private $password="";
-    private $servidor="localhost";
+    private $user="admin";
+    private $password="Admin01*";
+    private $servidor="database-1.czr52zp12xr0.us-east-1.rds.amazonaws.com";
 
-    private $nameDB="mercadolibredb";
+    private $nameDB="moviles2jueves";
 
     public function connect(){
         try{        
