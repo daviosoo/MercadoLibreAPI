@@ -8,8 +8,8 @@
         $query= "SELECT * FROM producto";
         $producto=$dbconnection->query($query)->fetchAll(PDO::FETCH_ASSOC);
         header('Content-Type: application/json');
-        if(empty($producto)){
-            $array="no se encontro el producto";
+          if(count($producto) == 0){
+            $array="No se encontraron productos";
             echo(json_encode($array));
         }else{
             $item=json_encode($producto);
