@@ -5,10 +5,12 @@
         //$data= json_decode(file_get_contents('php://input'),true);
         $db = new DBconfig();
         $dbconnection  = $db->connect();
-        $query= "SELECT * FROM producto";
+        $query= "SELECT * FROM producto limit 1";
         $producto=$dbconnection->query($query)->fetchAll(PDO::FETCH_ASSOC);
+
+        
         header('Content-Type: application/json');
-          if(count($producto) == 0){
+        if(count($producto) == 0){
             $array="No se encontraron productos";
             echo(json_encode($array));
         }else{
