@@ -5,7 +5,7 @@
         //$data= json_decode(file_get_contents('php://input'),true);
         $db = new DBconfig();
         $dbconnection  = $db->connect();
-        $query= "SELECT * FROM producto limit 1";
+        $query= "SELECT * FROM producto";
         $producto=$dbconnection->query($query)->fetchAll(PDO::FETCH_ASSOC);
 
         
